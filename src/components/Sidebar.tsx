@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+
 import { sidebarLinks } from '@/constants'
 import { cn } from '@/lib/utils'
 import { usePathname } from 'next/navigation'
@@ -23,7 +24,10 @@ const Sidebar = () => {
                                 'bg-blue-1': isActive,
                             })}
                         >
-                            {link.label}
+                            {link.icon}
+                            <p className='text-lg font-semibold max-lg:hidden'>
+                                {link.label}
+                            </p>
                         </Link>
                     );
                 })}
