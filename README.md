@@ -38,5 +38,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## Todo
 
 > [!NOTE]
-> Date: Aug 07, 2024
-> Timestamp: 37:40
+> Date: Aug 08, 2024 | 
+> Timestamp: 1:02:39
