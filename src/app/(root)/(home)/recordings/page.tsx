@@ -1,13 +1,13 @@
 import React from 'react'
 
-const Upcoming = () => {
+const Recordings = () => {
     return (
         <section className='flex size-full flex-col gap-10'>
             <h1 className='text-3xl font-bold'>
-                Upcoming
+                Recordings
             </h1>
         </section>
     )
 }
 
-export default Upcoming
+export default Recordings
