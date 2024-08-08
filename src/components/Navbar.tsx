@@ -16,7 +16,7 @@ const Navbar = () => {
                 </Image>       
                 <p className='text-[26px] font-extrabold hidden sm:block'>Hoom</p>
             </Link>
-            <div className="flex-between gap-5">
+            <div className="flex-between gap-4">
                 <SignedIn>
                     <UserButton />
                 </SignedIn>

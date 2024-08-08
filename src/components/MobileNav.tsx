@@ -30,12 +30,12 @@ const MobileNav = () => {
     );
 
     return (
-        <section className='w-full'>
+        <section className='flex sm:hidden w-full'>
             <Sidebar 
                 header={customerHeader} 
                 visible={visible} 
                 onHide={() => setVisible(false)}
-                className='w-[80vw]'
+                className='w-[20rem]'
             >
                 <div className='flex h-[calc(100vh-72px)] flex-col justify-between overflow-y-auto'>
                     <div className='flex h-full flex- flex-col gap-4 pt-4'>
@@ -49,7 +49,7 @@ const MobileNav = () => {
                                     onClick={() => setVisible(false)}
                                 >
                                     <Button 
-                                        className='w-80 flex gap-4 py-3 px-4 items-center text-start text-lg ring-0'
+                                        className='w-[90%] flex gap-4 py-3 px-4 items-center text-start text-lg ring-0'
                                         text={!isActive}
                                     >
                                         {link.icon}
