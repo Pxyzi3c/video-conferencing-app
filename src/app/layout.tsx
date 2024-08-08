@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from '@clerk/nextjs'
+
 import "./globals.css";
 
 import 'primereact/resources/themes/lara-dark-teal/theme.css'
@@ -20,7 +21,21 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <ClerkProvider>
+        <ClerkProvider
+            appearance={{
+                layout: {
+                    logoImageUrl: '/images/logo.svg',
+                    socialButtonsVariant: 'iconButton',
+                },
+                variables: {
+                    colorText: '#FFFFFF',
+                    colorPrimary: '#5EEAD4',
+                    colorBackground: '#1C1F2E',
+                    colorInputBackground: '#252A41',
+                    colorInputText: '#FFFFFF',
+                }
+            }}
+        >
             <html lang="en">
                 <body className={`${inter.className} bg-dark-2`}>{children}</body>
             </html>
