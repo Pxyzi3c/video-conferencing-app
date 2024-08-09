@@ -12,12 +12,25 @@ const config: Config = {
                 dark: {
                     1: '#1C1F2E',
                     2: '#161925',
-                }
+                },
+                blue: {
+                    1: '#5EEAD4',
+                },
+                sky: {
+                    1: '#C4F9EB',
+                },
+                orange: {
+                    1: '#FF742E',
+                },
+                purple: {
+                    1: '#830EF9',
+                },
+                yellow: {
+                    1: '#F9A90E',
+                },
             },
             backgroundImage: {
-                "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-                "gradient-conic":
-                "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+                hero: "url('/images/hero-background.png')",
             },
         },
     },
