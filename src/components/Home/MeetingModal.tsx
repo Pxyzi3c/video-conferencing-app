@@ -46,6 +46,7 @@ const MeetingModal = ({ isOpen, onClose,  title, className, children, handleClic
                             label={buttonText || 'Schedule Meeting'}
                             icon={buttonIcon}
                             className='ring-0'
+                            onClick={handleClick}
                         >
                         </Button>
                     </div>
