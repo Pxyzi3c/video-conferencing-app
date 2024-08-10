@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^5.2.14",
+    "@stream-io/node-sdk": "^0.3.0",
+    "@stream-io/video-react-sdk": "^1.2.20",
     "clsx": "^2.1.1",
     "lucide-react": "^0.424.0",
     "next": "14.2.5",
