@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { RefObject, useRef, useState } from 'react';
 
 import { 
     Plus,
@@ -9,11 +9,14 @@ import {
     UserRoundPlus
 } from 'lucide-react';
 
+import { Toast, ToastMessage } from 'primereact/toast';
+
 import Card from './Card';
 import MeetingModal from './MeetingModal';
 
 import { useRouter } from 'next/navigation';
 import { useUser } from '@clerk/nextjs';
+
 import { Call, useStreamVideoClient } from '@stream-io/video-react-sdk';
 
 const MeetingTypeList = () => {
@@ -27,12 +30,25 @@ const MeetingTypeList = () => {
         link: ''        
     })
     const [callDetails, setCallDetails] = useState<Call>();
+    const toast = useRef<Toast>(null);
+
+    const showMessage = (title: string, message: string, ref: RefObject<Toast>, severity: ToastMessage['severity']) => {
+        ref.current?.show({
+            severity: severity,
+            summary: title,
+            detail: message
+        })
+    }
 
     const createMeeting = async () => {
-        console.log("DUMADAAAN NAMAN DITOO")
         if(!user || !client) return;
 
         try {
+            if(!values.dateTime) {
+                showMessage('Warning!', 'Please select a date and a time!', toast, 'warn');
+                return;
+            }
+
             const id = crypto.randomUUID();
             const call = client.call('default', id);
 
@@ -52,13 +68,20 @@ const MeetingTypeList = () => {
 
             setCallDetails(call);
 
+            
             if(!values.description) {
-                router.push(`/meeting/${call.id}`)
+                showMessage('Success!', 'Meeting created successfully!', toast, 'success');
+                setTimeout(() => {
+                    router.push(`/meeting/${call.id}`)
+                }, 1000)
             }
+            
         } catch (error) {
             console.log(error)
+            showMessage('Error!', 'Failed to create meeting!', toast, 'error');
         }
     }
+
     return (
         <section className='grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4'>
             <Card 
@@ -98,6 +121,7 @@ const MeetingTypeList = () => {
                 buttonText="Start Meeting"
                 handleClick={createMeeting}
             />
+            <Toast ref={toast} position="top-center" />
         </section>
     )
 }
