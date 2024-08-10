@@ -23,9 +23,8 @@ const MeetingModal = ({ isOpen, onClose,  title, className, children, handleClic
             <Dialog 
                 header={title} 
                 visible={isOpen} 
-                style={{ width: '50vw' }} 
                 onHide={onClose} 
-                className='border-none'
+                className='w-[80vw] md:w-[50vw] lg:w-[30vw] border-none'
             >
                 <div 
                     className={cn('flex flex-col gap-6 border-none')}

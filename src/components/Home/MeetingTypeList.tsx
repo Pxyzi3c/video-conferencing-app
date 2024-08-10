@@ -36,7 +36,8 @@ const MeetingTypeList = () => {
         ref.current?.show({
             severity: severity,
             summary: title,
-            detail: message
+            detail: message,
+            life: 3000
         })
     }
 
@@ -121,7 +122,10 @@ const MeetingTypeList = () => {
                 buttonText="Start Meeting"
                 handleClick={createMeeting}
             />
-            <Toast ref={toast} position="top-center" />
+            <Toast 
+                ref={toast} 
+                position="top-center"
+            />
         </section>
     )
 }
