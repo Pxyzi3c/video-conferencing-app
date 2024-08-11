@@ -40,7 +40,7 @@ function MeetingSetup({ setIsSetupComplete }: { setIsSetupComplete: (value: bool
                 icon={<ArrowRightToLine />}
                 className='gap-4'
                 onClick={() => {
-                    call.join();
+                    call?.join();
 
                     setIsSetupComplete(true);
                 }}
