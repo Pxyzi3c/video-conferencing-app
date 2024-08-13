@@ -4,13 +4,16 @@ import React, { RefObject, useRef, useState } from 'react';
 
 import { 
     Plus,
-    Calendar,
+    CalendarClock ,
     Video,
-    UserRoundPlus
+    UserRoundPlus,
+    Clipboard
 } from 'lucide-react';
 
 import { Toast, ToastMessage } from 'primereact/toast';
-
+import { InputTextarea } from 'primereact/inputtextarea';
+import { Calendar } from 'primereact/calendar';
+        
 import Card from './Card';
 import MeetingModal from './MeetingModal';
 
@@ -94,7 +97,7 @@ const MeetingTypeList = () => {
             />
             <Card 
                 title="Schedule Meeting"
-                icon={<Calendar />}
+                icon={<CalendarClock  />}
                 description="Plan your meeting"
                 handleClick={() => setMeetingState('isScheduleMeeting')}
                 color="bg-blue-1"
@@ -114,6 +117,55 @@ const MeetingTypeList = () => {
                 color="bg-yellow-1"
             />
 
+            {!callDetails ? (
+                <MeetingModal 
+                    isOpen={meetingState === 'isScheduleMeeting'}
+                    onClose={() => setMeetingState(undefined)}
+                    title="Create Meeting"
+                    className="text-center"
+                    buttonText="Create Meeting"
+                    handleClick={createMeeting}
+                >
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="description">Description</label>
+                        <InputTextarea 
+                            id="description" 
+                            aria-describedby="description-help"
+                            onChange={(e) => {
+                                setValues({...values, description: e.target.value})
+                            }} 
+                        />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="description">Select Date and Time</label>
+                        <Calendar 
+                            id="buttondisplay" 
+                            value={values.dateTime} 
+                            onChange={(e) => {
+                                setValues({ ...values, dateTime: e.value })
+                            }} 
+                            showIcon 
+                            dateFormat={'MM d, yy'}
+                            showTime
+                            hourFormat="12"
+                        />
+                    </div>
+                </MeetingModal>
+            ): (
+                <MeetingModal 
+                    isOpen={meetingState === 'isScheduleMeeting'}
+                    onClose={() => setMeetingState(undefined)}
+                    title="Meeting Created"
+                    className="text-center"
+                    buttonText="Copy Meeting Link"
+                    handleClick={() => {
+                        // navigator.clipboard.writeText(meetingLink);
+                        showMessage('Link copied!', 'Meeting link copied!', toast, 'success');
+                    }}
+                    image="/icons/checked.svg"
+                    buttonIcon={<Clipboard />}
+                />
+            )}
             <MeetingModal 
                 isOpen={meetingState === 'isInstantMeeting'}
                 onClose={() => setMeetingState(undefined)}
