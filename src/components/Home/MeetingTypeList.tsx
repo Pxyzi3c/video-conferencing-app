@@ -7,7 +7,8 @@ import {
     CalendarClock ,
     Video,
     UserRoundPlus,
-    Clipboard
+    Clipboard,
+    CalendarCheck
 } from 'lucide-react';
 
 import { Toast, ToastMessage } from 'primereact/toast';
@@ -123,7 +124,7 @@ const MeetingTypeList = () => {
                     onClose={() => setMeetingState(undefined)}
                     title="Create Meeting"
                     className="text-center"
-                    buttonText="Create Meeting"
+                    buttonText="Schedule Meeting"
                     handleClick={createMeeting}
                 >
                     <div className="flex flex-col gap-2">
@@ -132,7 +133,7 @@ const MeetingTypeList = () => {
                             id="description" 
                             aria-describedby="description-help"
                             onChange={(e) => {
-                                setValues({...values, description: e.target.value})
+                                setValues({ ...values, description: e.target.value })
                             }} 
                         />
                     </div>
@@ -142,7 +143,7 @@ const MeetingTypeList = () => {
                             id="buttondisplay" 
                             value={values.dateTime} 
                             onChange={(e) => {
-                                setValues({ ...values, dateTime: e.value })
+                                setValues({ ...values, dateTime: e.value! })
                             }} 
                             showIcon 
                             dateFormat={'MM d, yy'}
@@ -162,7 +163,7 @@ const MeetingTypeList = () => {
                         // navigator.clipboard.writeText(meetingLink);
                         showMessage('Link copied!', 'Meeting link copied!', toast, 'success');
                     }}
-                    image="/icons/checked.svg"
+                    image={<CalendarCheck size={72} className='text-blue-1' />}
                     buttonIcon={<Clipboard />}
                 />
             )}

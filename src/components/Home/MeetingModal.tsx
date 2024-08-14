@@ -13,7 +13,7 @@ interface MeetingModalProps {
     children?: ReactNode;
     handleClick?: () => void;
     buttonText?: string;
-    image?: string;
+    image?: ReactNode;
     buttonIcon?: ReactNode;
 }
 
@@ -32,21 +32,18 @@ const MeetingModal = ({ isOpen, onClose,  title, className, children, handleClic
                     <div className="flex flex-col gap-6">
                         {image && (
                             <div className="flex justify-center">
-                                <Image
-                                    src={image}
-                                    alt="image"
-                                    width={72}
-                                    height={72}
-                                />
+                                {image}
                             </div>
                         )}
                         {children}
                         <Button
-                            label={buttonText || 'Schedule Meeting'}
-                            icon={buttonIcon}
-                            className='ring-0'
+                            className='ring-0 flex justify-center align-center gap-2'
                             onClick={handleClick}
                         >
+                            {buttonIcon}
+                            <span className='font-bold'>
+                                {buttonText || 'Schedule Meeting'}
+                            </span>
                         </Button>
                     </div>
                 </div>
