@@ -4,6 +4,8 @@ import { useGetCalls } from '@/hooks/useGetCalls'
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation';
 import { Call, CallRecording } from '@stream-io/video-react-sdk';
+import MeetingCard from './MeetingCard';
+
 function CallList({ type }: { type: 'previous' |'upcoming' | 'recordings' }) {
     const { previousCalls, upcomingCalls, isLoading } = useGetCalls();
     const router = useRouter();
