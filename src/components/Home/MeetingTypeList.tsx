@@ -74,8 +74,9 @@ const MeetingTypeList = () => {
             setCallDetails(call);
 
             
+            showMessage('Success!', 'Meeting created successfully!', toast, 'success');
+            
             if(!values.description) {
-                showMessage('Success!', 'Meeting created successfully!', toast, 'success');
                 setTimeout(() => {
                     router.push(`/meeting/${call.id}`)
                 }, 1000)
@@ -86,6 +87,8 @@ const MeetingTypeList = () => {
             showMessage('Error!', 'Failed to create meeting!', toast, 'error');
         }
     }
+
+    const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${callDetails?.id}`
 
     return (
         <section className='grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4'>
@@ -156,16 +159,20 @@ const MeetingTypeList = () => {
                 <MeetingModal 
                     isOpen={meetingState === 'isScheduleMeeting'}
                     onClose={() => setMeetingState(undefined)}
-                    title="Meeting Created"
+                    title=""
                     className="text-center"
                     buttonText="Copy Meeting Link"
                     handleClick={() => {
-                        // navigator.clipboard.writeText(meetingLink);
+                        navigator.clipboard.writeText(meetingLink);
                         showMessage('Link copied!', 'Meeting link copied!', toast, 'success');
                     }}
                     image={<CalendarCheck size={72} className='text-blue-1' />}
                     buttonIcon={<Clipboard />}
-                />
+                >
+                        <h1 className='text-center text-2xl font-extrabold lg:text-7xl'>
+                            Meeting Created
+                        </h1>
+                </MeetingModal>
             )}
             <MeetingModal 
                 isOpen={meetingState === 'isInstantMeeting'}
