@@ -1,10 +1,21 @@
+// @ts-nocheck
+
 'use client'
 
-import { useGetCalls } from '@/hooks/useGetCalls'
-import React, { useState } from 'react'
-import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+import { useGetCalls } from '@/hooks/useGetCalls';
 import { Call, CallRecording } from '@stream-io/video-react-sdk';
+import { useRouter } from 'next/navigation';
 import MeetingCard from './MeetingCard';
+import {
+    House,
+    CalendarArrowUp,
+    CalendarArrowDown,
+    Video,
+    Plus,
+    Play
+} from 'lucide-react';
+import Loader from './Loader';
 
 function CallList({ type }: { type: 'previous' |'upcoming' | 'recordings' }) {
     const { previousCalls, upcomingCalls, isLoading } = useGetCalls();
@@ -40,11 +51,31 @@ function CallList({ type }: { type: 'previous' |'upcoming' | 'recordings' }) {
     const calls = getCalls();
     const noCallsMessage = getNoCallsMessage();
 
+    if(isLoading) return <Loader />
+
     return (
         <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
             {calls && calls.length > 0 ? calls.map((meeting: Call | CallRecording) => (
-                <MeetingCard />
-            ))}
+                <MeetingCard 
+                    key={(meeting as Call).id}
+                    icon={
+                        type === 'previous'
+                            ? <CalendarArrowDown />
+                            : type === 'upcoming'
+                                ? <CalendarArrowUp />
+                                : <Video />
+                    }
+                    title={(meeting as Call).state.custom.description.substring(0, 26) || 'No Description'}
+                    date={meeting.state.startsAt.toLocaleString() || meeting.start_time.toLocaleString()}
+                    isPreviousMeeting={type === 'previous'}
+                    buttonIcon1={type === 'recordings' ? <Play /> : undefined}
+                    buttonText={type === 'recordings' ? 'Play' : 'Start'}
+                    handleClick={type === 'recordings' ? () => router.push(`${meeting.url}`) : () => router.push(`/meeting/${meeting.id}`)}
+                    link={type === 'recordings' ? meeting.url : `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${meeting.id}`}
+                />
+            )) : (
+                <h1>{noCallsMessage}</h1>
+            )}
         </div>
     )
 }
