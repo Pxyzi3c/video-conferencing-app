@@ -13,7 +13,8 @@ import {
     CalendarArrowDown,
     Video,
     Plus,
-    Play
+    Play,
+    CalendarOff
 } from 'lucide-react';
 import Loader from './Loader';
 
@@ -74,7 +75,12 @@ function CallList({ type }: { type: 'previous' |'upcoming' | 'recordings' }) {
                     link={type === 'recordings' ? meeting.url : `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${meeting.id}`}
                 />
             )) : (
-                <h1>{noCallsMessage}</h1>
+                <div className='flex flex-col justify-center items-center gap-5'>
+                    <CalendarOff size={40}/>
+                    <h1 className='text-center'>
+                        No Upcoming Events
+                    </h1>
+                </div>
             )}
         </div>
     )
