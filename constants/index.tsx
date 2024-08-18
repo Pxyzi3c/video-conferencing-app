@@ -35,3 +35,11 @@ export const sidebarLinks = [
         icon: <Plus />,
     },
 ]
+
+export const avatarImages = [
+    'https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png',
+    'https://primefaces.org/cdn/primereact/images/avatar/asiyajavayant.png',
+    'https://primefaces.org/cdn/primereact/images/avatar/onyamalimba.png',
+    'https://primefaces.org/cdn/primereact/images/avatar/ionibowcher.png',
+    'https://primefaces.org/cdn/primereact/images/avatar/xuxuefeng.png',
+]
