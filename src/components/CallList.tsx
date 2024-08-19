@@ -2,7 +2,7 @@
 
 'use client'
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useGetCalls } from '@/hooks/useGetCalls';
 import { Call, CallRecording } from '@stream-io/video-react-sdk';
 import { useRouter } from 'next/navigation';
@@ -17,11 +17,22 @@ import {
     CalendarOff
 } from 'lucide-react';
 import Loader from './Loader';
+import { Toast } from 'primereact/toast';
 
 function CallList({ type, emptyMessage }: { type: 'previous' |'upcoming' | 'recordings', emptyMessage: string }) {
-    const { previousCalls, upcomingCalls, isLoading } = useGetCalls();
+    const toast = useRef<Toast>(null);
+    const { previousCalls, upcomingCalls, callRecordings,isLoading } = useGetCalls();
     const router = useRouter();
     const [recordings, setRecordings] = useState<CallRecording[]>([]);
+
+    const showMessage = (title: string, message: string, ref: RefObject<Toast>, severity: ToastMessage['severity']) => {
+        ref.current?.show({
+            severity: severity,
+            summary: title,
+            detail: message,
+            life: 3000
+        })
+    }
 
     const getCalls = () => {
         switch (type) {
@@ -49,6 +60,24 @@ function CallList({ type, emptyMessage }: { type: 'previous' |'upcoming' | 'reco
         }
     }
 
+    useEffect(() => {
+        const fetchRecordings = async () => {
+            try {
+                const callData = await Promise.all(callRecordings.map((meeting) => meeting.queryRecordings()))
+
+                const recordings = callData
+                    .filter(call => call.recordings.length > 0)
+                    .flatMap(call => call.recordings)
+    
+                setRecordings(recordings);   
+            } catch (error) {
+                showMessage('Try Again Later!', $(error), toast, 'error');
+            }
+        }
+
+        if(type === 'recordings') fetchRecordings();
+    }, [type, callRecordings])
+
     const calls = getCalls();
     const noCallsMessage = getNoCallsMessage();
 
@@ -66,8 +95,8 @@ function CallList({ type, emptyMessage }: { type: 'previous' |'upcoming' | 'reco
                                 ? <CalendarArrowUp />
                                 : <Video />
                     }
-                    title={(meeting as Call).state.custom.description.substring(0, 26) || 'No Description'}
-                    date={meeting.state.startsAt.toLocaleString() || meeting.start_time.toLocaleString()}
+                    title={(meeting as Call).state?.custom.description.substring(0, 26) || meeting.filename.substring(0, 20) || 'No Description'}
+                    date={meeting.state?.startsAt.toLocaleString() || meeting.start_time.toLocaleString()}
                     isPreviousMeeting={type === 'previous'}
                     buttonIcon1={type === 'recordings' ? <Play /> : undefined}
                     buttonText={type === 'recordings' ? 'Play' : 'Start'}
@@ -82,6 +111,10 @@ function CallList({ type, emptyMessage }: { type: 'previous' |'upcoming' | 'reco
                     </h1>
                 </div>
             )}
+            <Toast 
+                ref={toast} 
+                position="top-center"
+            />
         </div>
     )
 }
