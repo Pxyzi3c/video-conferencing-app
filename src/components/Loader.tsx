@@ -4,10 +4,6 @@ import React from 'react'
 
 const Loader = () => {
     return (
-        // <div className='animate-spin flex-center h-screen w-full'>
-        //     <LoaderCircle size={50} />
-        // </div>
-
         <div className="loader-container flex items-center justify-center h-screen w-full">
             <span className="sun sunshine">
             </span>
