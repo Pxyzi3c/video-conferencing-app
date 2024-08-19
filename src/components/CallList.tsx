@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import Loader from './Loader';
 
-function CallList({ type }: { type: 'previous' |'upcoming' | 'recordings' }) {
+function CallList({ type, emptyMessage }: { type: 'previous' |'upcoming' | 'recordings', emptyMessage: string }) {
     const { previousCalls, upcomingCalls, isLoading } = useGetCalls();
     const router = useRouter();
     const [recordings, setRecordings] = useState<CallRecording[]>([]);
@@ -78,7 +78,7 @@ function CallList({ type }: { type: 'previous' |'upcoming' | 'recordings' }) {
                 <div className='flex flex-col justify-center items-center gap-5'>
                     <CalendarOff size={40}/>
                     <h1 className='text-center'>
-                        No Upcoming Events
+                        {emptyMessage}
                     </h1>
                 </div>
             )}

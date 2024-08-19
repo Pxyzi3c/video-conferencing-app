@@ -10,6 +10,7 @@ const Upcoming = () => {
 
             <CallList 
                 type="upcoming"
+                emptyMessage="No Upcoming Calls"
             />
         </section>
     )

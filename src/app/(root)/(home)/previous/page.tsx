@@ -10,6 +10,7 @@ const Previous = () => {
 
             <CallList 
                 type="previous"
+                emptyMessage="No Previous Calls"
             />
         </section>
     )
