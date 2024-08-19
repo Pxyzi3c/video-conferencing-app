@@ -40,3 +40,29 @@
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 }
+
+/* LOADER */
+.sun {
+    width: 80px;
+    height: 80px;
+    background: #1C1F2E;
+    border-radius: 60px;
+    position: absolute;
+}
+
+.sunshine {
+    background: #5EEAD4;
+    animation: sunshines 1s infinite;
+}
+
+@keyframes sunshines {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1.6);
+        opacity: 0;
+    }
+}

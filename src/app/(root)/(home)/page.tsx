@@ -1,6 +1,7 @@
 'use client'
 
 import MeetingTypeList from '@/src/components/Home/MeetingTypeList';
+import { Loader } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
 
 function formatTime(date: Date) {
