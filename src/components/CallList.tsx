@@ -71,7 +71,7 @@ function CallList({ type, emptyMessage }: { type: 'previous' |'upcoming' | 'reco
     
                 setRecordings(recordings);   
             } catch (error) {
-                showMessage('Try Again Later!', $(error), toast, 'error');
+                showMessage('Try Again Later!', `${error}`, toast, 'error');
             }
         }
 
@@ -95,7 +95,7 @@ function CallList({ type, emptyMessage }: { type: 'previous' |'upcoming' | 'reco
                                 ? <CalendarArrowUp />
                                 : <Video />
                     }
-                    title={(meeting as Call).state?.custom.description.substring(0, 26) || meeting.filename.substring(0, 20) || 'No Description'}
+                    title={(meeting as Call).state?.custom?.description?.substring(0, 26) || meeting?.filename?.substring(0, 20) || 'Personal Meeting'}
                     date={meeting.state?.startsAt.toLocaleString() || meeting.start_time.toLocaleString()}
                     isPreviousMeeting={type === 'previous'}
                     buttonIcon1={type === 'recordings' ? <Play /> : undefined}
