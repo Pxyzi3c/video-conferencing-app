@@ -22,6 +22,7 @@ import { useRouter } from 'next/navigation';
 import { useUser } from '@clerk/nextjs';
 
 import { Call, useStreamVideoClient } from '@stream-io/video-react-sdk';
+import { InputText } from 'primereact/inputtext';
 
 const MeetingTypeList = () => {
     const router = useRouter();
@@ -182,6 +183,25 @@ const MeetingTypeList = () => {
                 buttonText="Start Meeting"
                 handleClick={createMeeting}
             />
+            <MeetingModal 
+                isOpen={meetingState === 'isJoiningMeeting'}
+                onClose={() => setMeetingState(undefined)}
+                title="Type the link here"
+                className="text-center"
+                buttonText="Join Meeting"
+                handleClick={() => router.push(values.link)}
+            >
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="meeting_link">Meeting Link</label>
+                    <InputText
+                        id="meeting_link" 
+                        aria-describedby="meeting_link-help"
+                        onChange={(e) => {
+                            setValues({ ...values, link: e.target.value })
+                        }} 
+                    />
+                </div>
+            </MeetingModal>
             <Toast 
                 ref={toast} 
                 position="top-center"
