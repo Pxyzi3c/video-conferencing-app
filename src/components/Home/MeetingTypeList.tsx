@@ -189,7 +189,14 @@ const MeetingTypeList = () => {
                 title="Type the link here"
                 className="text-center"
                 buttonText="Join Meeting"
-                handleClick={() => router.push(values.link)}
+                handleClick={() => {
+                    try {
+                        router.push(values.link)
+                    } catch (error) {
+                        console.log(error)
+                        showMessage('Error!', 'Failed to join meeting!', toast, 'error');
+                    }
+                }}
             >
                 <div className="flex flex-col gap-2">
                     <label htmlFor="meeting_link">Meeting Link</label>
